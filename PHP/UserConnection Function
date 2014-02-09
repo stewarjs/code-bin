@@ -1,0 +1,20 @@
+function UserConnection($user,$pass){
+    //Establish Connection
+    $db = new MyDB();
+    if(!$db){echo $db->lastErrorMsg();}
+
+    //SQL Statement
+    $sql ='SELECT name, email from users where email="'.$user.'" and password="'.$pass.'"';
+
+    
+    //Process SQL Results
+    $ret = $db->query($sql);
+    if(empty($row = $ret->fetchArray(SQLITE3_ASSOC))){
+        echo 'no result';
+    }else{
+        echo "Name: ". $row['name'] . " Email: ". $row['email'];
+    }
+        
+    //Close Connetion
+    $db->close();
+}
