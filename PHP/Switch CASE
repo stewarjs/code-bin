@@ -1,0 +1,10 @@
+switch ($process){
+
+    case 'login':
+        UserConnection($_REQUEST["user"],$_REQUEST["pass"]);
+    break;
+    
+    default:
+        echo 'You are trying to access a process that doesn\'t exist';
+    
+}
