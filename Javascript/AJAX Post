@@ -1,0 +1,19 @@
+
+    var email = document.getElementById("email").value;
+    var passcode = document.getElementById("password").value;
+    var params = 'process=login&user=' + email + '&pass=' + passcode;
+    var request = new XMLHttpRequest();
+    request.open('POST','backbone.php');
+    
+    //Set the proper header information along with the request
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    //On Success
+    request.onload = function() {
+        if(this.status >= 200 && this.status < 400) {
+            alert(request.responseText);
+        }
+    }
+    
+    //Push data
+    request.send(params);
