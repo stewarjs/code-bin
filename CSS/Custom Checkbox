@@ -9,7 +9,7 @@ input[type=checkbox] {
     display: none;  
 }  
     
-.checkbox label:before {  
+label:before {  
    background: url(toggle.png) no-repeat;
     width: 60px;
     height: 30px;
@@ -26,7 +26,7 @@ input[type=checkbox]:checked + label:before {
 <body>
 
 
-<div class="checkbox">  
+
     <input id="1" type="checkbox" name="check" value="1">  
     <label for="1">Checkbox No. 1</label>  
     <br>  
@@ -34,23 +34,23 @@ input[type=checkbox]:checked + label:before {
     <label for="2">Checkbox No. 2</label> 
     <br>  
     <input id="3" type="checkbox" name="check" value="3">  
-    <label for="3">Checkbox No. 2</label> 
+    <label for="3">Checkbox No. 3</label> 
     <br>  
     <input id="4" type="checkbox" name="check" value="4">  
-    <label for="4">Checkbox No. 2</label> 
+    <label for="4">Checkbox No. 4</label> 
     <br>  
     <input id="5" type="checkbox" name="check" value="5">  
-    <label for="5">Checkbox No. 2</label> 
+    <label for="5">Checkbox No. 5</label> 
     <br>  
     <input id="6" type="checkbox" name="check" value="6">  
-    <label for="6">Checkbox No. 2</label> 
+    <label for="6">Checkbox No. 6</label> 
     <br>  
     <input id="7" type="checkbox" name="check" value="7">  
-    <label for="7">Checkbox No. 2</label> 
+    <label for="7">Checkbox No. 7</label> 
     <br>  
     <input id="8" type="checkbox" name="check" value="8">  
-    <label for="8">Checkbox No. 2</label> 
-</div>   
+    <label for="8">Checkbox No. 8</label> 
+
     
 </body>
 </html>
