@@ -1,0 +1,19 @@
+function TideData($stationID,$startDate,$endDate){
+define('NS_SOAP','http://schemas.xmlsoap.org/soap/envelope/');
+	
+$tides = getData('http://opendap.co-ops.nos.noaa.gov/axis/webservices/predictions/response.jsp','?stationId='.$stationID.'&beginDate='.$startDate.'&endDate='.$endDate.'&datum=MLLW&unit=1&timeZone=1&dataInterval=60&format=xml');
+
+$xml = new SimpleXMLElement($tides);
+	$timestamps = array();
+	$predictions = array();
+	foreach($xml->children(NS_SOAP)->Body->children(null)->PredictionsAndMetadata->data->item as $item){
+		array_push($timestamps, strval($item->timeStamp));
+		array_push($predictions, floatval($item->pred));
+	}
+	
+	
+	//RETURN BOTH ARRAYS EG:
+	//ECHO $timestamps;
+	//ECHO $predictions;
+	
+}
