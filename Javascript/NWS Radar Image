@@ -1,0 +1,43 @@
+var num;
+var t;
+var cachekiller = "?" + Math.floor(Math.random()*1001);
+
+function loadradar(rid) {
+var loaded = ["http://radar.weather.gov/ridge/lite/N0R/" + rid + "_0.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_1.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_2.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_3.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_4.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_5.png" + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_6.png"  + cachekiller,
+                  "http://radar.weather.gov/ridge/lite/N0R/" + rid + "_7.png"  + cachekiller];
+    //var nr = [];
+    for (var i=0; i < loaded.length+1; i++) {
+        ridge[i] = new Image();
+        ridge[i].src = loaded[i];
+    };
+    
+};
+
+var ridge = [];
+
+// Pass Weather Station ID to loadradar()
+
+loadradar('YUX');
+var htmldata = '<img width="100%" id="radarimage" src=' + ridge[0].src + ' />';
+$("#radarprods").html(htmldata);
+
+clearTimeout(t);
+var num = 7;
+
+(function loop() {
+     
+    //$("#radarimage").css('opacity', '0.0');
+    $("#radarimage").attr("src", ridge[num].src);
+    //$("#radarimage").css('opacity', '1.0');
+    num = num - 1;
+    if (num == -1) {
+        num = 7;
+    };
+    t=setTimeout(loop,1000);
+})();
