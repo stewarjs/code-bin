@@ -30,6 +30,7 @@ $("#radarprods").html(htmldata);
 clearTimeout(t);
 var num = 7;
 
+
 (function loop() {
      
     //$("#radarimage").css('opacity', '0.0');
