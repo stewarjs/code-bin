@@ -1,0 +1,65 @@
+//JAVASCRIPT
+
+$('#container').append('<ul>');
+$('#slides img').each(function(){
+    if($(this).index() != 0) {
+        $(this).hide();
+    }
+    $('<li>').css({
+                'background': 'url(' + $(this).attr('src') + ') center center no-repeat',
+                '-webkit-background-size': 'cover',
+                '-moz-background-size': 'cover',
+                '-o-background-size': 'cover',
+                'background-size': 'cover'
+            }).appendTo('#container ul');
+});
+
+$(document).on('click','#container ul li', function(){
+    var index = $(this).index();
+    $('#slides img').fadeOut("fast");
+    $('#slides img').eq(index).fadeIn( "fast" );
+});
+
+$('#container').on('click','img', function(){
+    var slideLocation;
+    slideLocation = $(this).attr('data-link');
+    if(slideLocation !== undefined){
+        window.open(slideLocation);
+    };
+});
+
+//CSS
+#container {
+    position: relative;
+}
+
+#container ul {
+    position: absolute;
+    list-style: none;
+    top: 0;
+    right: 10px;
+}
+
+#container ul li {
+    width: 150px;
+    height: 50px;
+}
+
+#slides {
+    position: relative;
+}
+
+#slides img {
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    position: absolute;
+}
+
+//HTML
+<div id="container">
+<div id="slides">
+    <img />
+    <img data-link="http://google.com" />
+</div>
+</div>
