@@ -1,10 +1,15 @@
 //JAVASCRIPT
 
+window.onresize=function(){
+    $('#container').height($('#container img').height());
+}
+$('#container').height($('#container img').height());
 $('#container').append('<ul>');
-$('#slides img').each(function(){
+$('#container img').each(function(){
     if($(this).index() != 0) {
         $(this).hide();
     }
+   
     $('<li>').css({
                 'background': 'url(' + $(this).attr('src') + ') center center no-repeat',
                 '-webkit-background-size': 'cover',
@@ -16,8 +21,8 @@ $('#slides img').each(function(){
 
 $(document).on('click','#container ul li', function(){
     var index = $(this).index();
-    $('#slides img').fadeOut("fast");
-    $('#slides img').eq(index).fadeIn( "fast" );
+    $('#container img').fadeOut("fast");
+    $('#container img').eq(index).fadeIn( "fast" );
 });
 
 $('#container').on('click','img', function(){
@@ -45,21 +50,17 @@ $('#container').on('click','img', function(){
     height: 50px;
 }
 
-#slides {
-    position: relative;
-}
-
-#slides img {
+#container img {
     top: 0;
     left: 0;
     max-width: 100%;
+    display: block;
+    height: auto;
     position: absolute;
 }
 
 //HTML
 <div id="container">
-<div id="slides">
-    <img />
-    <img data-link="http://google.com" />
-</div>
+    <img src="http://si.wsj.net/public/resources/images/P1-BP821_DRONE_G_20140414183221.jpg" />
+    <img src="http://media-cdn.tripadvisor.com/media/photo-s/01/33/d8/ff/smithsonian-institution.jpg" />
 </div>
