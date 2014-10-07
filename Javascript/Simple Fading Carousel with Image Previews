@@ -1,41 +1,81 @@
 //JAVASCRIPT
 
-window.onresize=function(){
-    $('#container').height($('#container img').height());
-}
-$('#container').height($('#container img').height());
-$('#container').append('<ul>');
-$('#container img').each(function(){
-    if($(this).index() != 0) {
-        $(this).hide();
+var container = document.getElementById('container');
+var pagination = document.createElement('ul');
+
+function resize(elem) {
+    if (elem.children.length) {
+        for (var i = 0; i < elem.children.length; i++) {
+            if(elem.children[i].getAttribute('data-state') == 'active'){
+                var offsetHeight = elem.children[i].offsetHeight;
+                elem.style.height = offsetHeight + "px";
+            }
+        }
     }
-   
-    $('<li>').css({
-                'background': 'url(' + $(this).attr('src') + ') center center no-repeat',
-                '-webkit-background-size': 'cover',
-                '-moz-background-size': 'cover',
-                '-o-background-size': 'cover',
-                'background-size': 'cover'
-            }).appendTo('#container ul');
-});
+}
+function getIndex(node) {
+  var childs = node.parentNode.childNodes;
+  for (i = 0; i < childs.length; i++) {
+    if (node == childs[i]) break;
+  }
+  return i;
+}
 
-$(document).on('click','#container ul li', function(){
-    var index = $(this).index();
-    $('#container img').fadeOut("fast");
-    $('#container img').eq(index).fadeIn( "fast" );
-});
+window.onresize=function(){
+    resize(container);
+}
 
-$('#container').on('click','img', function(){
-    var slideLocation;
-    slideLocation = $(this).attr('data-link');
-    if(slideLocation !== undefined){
-        window.open(slideLocation);
-    };
-});
+if (container.children.length) {
+    var children = container.children;
+    for (var i = 0; i < children.length; i++) {
+        if(i != 0) {
+            children[i].style.display = 'none';
+        }else{
+            children[i].setAttribute('data-state', 'active');
+        }
+        var paginationLink = document.createElement('li');
+        paginationLink.style.backgroundImage="url(" + children[i].src + ")";
+        paginationLink.style.backgroundSize="cover";
+        paginationLink.addEventListener('click', function() {
+            var index = getIndex(this);
+            var imgs = container.getElementsByTagName('img');
+            for (var i = 0; i < imgs.length; i++) {
+                if(i != index){
+                   imgs[i].setAttribute('data-state', 'none');
+                   imgs[i].style.display = 'none';
+                }else{
+                   imgs[i].setAttribute('data-state', 'active');
+                   imgs[i].style.display = 'block';
+                }
+            }
+            
+        });
+        pagination.appendChild(paginationLink);
+        
+        this.addEventListener('load', function() {
+         resize(container);
+        });
+        
+    }
+}
+container.appendChild(pagination);
+resize(container);
+
+var imgs = container.getElementsByTagName('img');
+for (var i = 0; i < imgs.length; i++) {
+    imgs[i].addEventListener('click', function() {
+        var slideLocation = this.getAttribute('data-link');
+        if(slideLocation != undefined){
+            window.open(slideLocation);
+        };
+    });
+}
 
 //CSS
+
 #container {
     position: relative;
+    border: 1px solid red;
 }
 
 #container ul {
@@ -60,7 +100,8 @@ $('#container').on('click','img', function(){
 }
 
 //HTML
+
 <div id="container">
     <img src="http://si.wsj.net/public/resources/images/P1-BP821_DRONE_G_20140414183221.jpg" />
-    <img src="http://media-cdn.tripadvisor.com/media/photo-s/01/33/d8/ff/smithsonian-institution.jpg" />
+    <img src="http://media-cdn.tripadvisor.com/media/photo-s/01/33/d8/ff/smithsonian-institution.jpg" data-link="http://google.com" />
 </div>
