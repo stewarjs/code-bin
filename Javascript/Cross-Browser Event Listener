@@ -1,0 +1,9 @@
+if (element.addEventListener) {
+    element.addEventListener('click', function() {
+        //Do Something
+    });
+} else {
+    element.attachEvent('onclick', function() {
+        //Do Something
+    });
+}
