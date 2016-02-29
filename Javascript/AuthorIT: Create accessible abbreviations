@@ -1,0 +1,77 @@
+// Replace expanded links with ABBR tags
+
+var links = document.querySelectorAll('.acronymtemplate');  // Get all acronym links in the document
+
+for(var i=0;i<links.length;i++){
+    var expanded = links[i].id.slice(1),        // Get definition
+        abbr = document.createElement('abbr');  // Create new tag
+
+    abbr.setAttribute('title',document.getElementById('d'+expanded).innerHTML); // Set the new tag's title attribute to the definition
+    abbr.innerHTML = links[i].innerHTML;                                        // Set the new tag's text to be the acronym definition
+    links[i].parentNode.replaceChild(abbr, links[i]);                           // Swap out the old link for thew new ABBR element
+}
+
+
+// Enhance expanded links with ABBR tags
+
+var links = document.querySelectorAll('.acronymtemplate');  // Get all acronym links in the document
+
+for(var i=0;i<links.length;i++){
+    var expanded = links[i].id.slice(1),        // Get definition
+        abbr = document.createElement('abbr');  // Create new tag
+        
+        links[i].setAttribute('href','#d' + expanded.slice(1));                             // Correct link title attribute
+        links[i].setAttribute('title',document.getElementById('d'+expanded).innerHTML);     // Correct link href attribute
+        abbr.setAttribute('title',document.getElementById('d'+expanded).innerHTML);         // Set the new tag's text to be the acronym definition
+        abbr.innerHTML = links[i].outerHTML;                                                // Insert the corrected link into the new ABBR tag
+        clickListener(abbr.firstChild);
+        
+    links[i].parentNode.replaceChild(abbr, links[i]);   // Swap out the old link for thew new ABBR/link element
+    
+}
+
+
+function clickListener(element) {
+    if (element.addEventListener) {
+        element.addEventListener('click', function(e) {
+            toggleInline(element);
+            e.preventDefault();
+        });
+    } else {
+        element.attachEvent('onclick', function(e) {
+            toggleInline(element);
+            e.preventDefault();
+        });
+    }
+}
+
+
+// Expand definition function
+function toggleInline(element){
+
+  var myDiv = document.getElementById('d' + element.id.slice(1));
+
+  if (myDiv){
+    if (myDiv.style.display == 'none') 
+      showInline('d' + element.id.slice(1));
+    else 
+      hideInline('d' + element.id.slice(1));
+  }
+}
+function showInline(element){
+
+  var myDiv = document.getElementById(element);
+  if (myDiv){
+    myDiv.style.display = 'inline';
+    myDiv.setAttribute('tabindex',-1);
+    myDiv.focus();
+  }
+}
+function hideInline(element){
+
+  var myDiv = document.getElementById(element);
+  if (myDiv) {
+    myDiv.removeAttribute('tabindex');
+    myDiv.style.display = 'none';
+  }
+}
