@@ -14,5 +14,10 @@ div.printOnly ol {
 }
 
 .printOnly {
-    display: none;
+    display: inline-block;
+}
+
+@media print {
+    div.printOnly{display:block;}
+    sup.printOnly{display:inline;}
 }
