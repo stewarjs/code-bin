@@ -1,0 +1,18 @@
+div.printOnly {
+    margin: 20px 0;
+    border-top: 2px solid #e1e1e1;
+    padding-top: 20px;
+}
+
+div.printOnly h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+div.printOnly ol {
+    list-style-type: decimal;
+}
+
+.printOnly {
+    display: none;
+}
