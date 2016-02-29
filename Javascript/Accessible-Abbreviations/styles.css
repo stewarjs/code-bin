@@ -14,7 +14,7 @@ div.printOnly ol {
 }
 
 .printOnly {
-    display: inline-block;
+    display: none;
 }
 
 @media print {
