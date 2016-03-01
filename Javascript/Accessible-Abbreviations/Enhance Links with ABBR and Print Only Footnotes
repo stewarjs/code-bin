@@ -1,7 +1,8 @@
 // Enhance expanded links with ABBR tags
 
-var links = document.querySelectorAll('.acronymtemplate'),  // Get all acronym links in the document
-		footnote = document.createElement('div'),								// Container to hold footnote section
+var links = document.querySelectorAll('.acronymtemplate');  // Get all acronym links in the document
+if(links.length > 0){
+var footnote = document.createElement('div'),								// Container to hold footnote section
     ol = document.createElement('ol'),											// Ordered list for footnote references
     definitionList = [],																		// A list of all definitions
     thisDefinition,																					// the current definition in the loop
@@ -102,4 +103,5 @@ function hideInline(element){
     myDiv.removeAttribute('tabindex');
     myDiv.style.display = 'none';
   }
+}
 }
