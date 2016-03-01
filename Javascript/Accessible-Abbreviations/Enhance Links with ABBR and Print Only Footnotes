@@ -1,107 +1,109 @@
+// AuthorIT's expanded links are not wholly compliant. What follows is NFC's solution to use expanded links for abbreviations
+
 // Enhance expanded links with ABBR tags
 
 var links = document.querySelectorAll('.acronymtemplate');  // Get all acronym links in the document
 if(links.length > 0){
-var footnote = document.createElement('div'),								// Container to hold footnote section
-    ol = document.createElement('ol'),											// Ordered list for footnote references
-    definitionList = [],																		// A list of all definitions
-    thisDefinition,																					// the current definition in the loop
-    num = 1,																								// the current reference number
-    definitionID,																						// variable for definition IDs
-    abbr,																										// variable for creating abbreviation elements
-    sup;																										// variable for creating superscript elements
-
-
-for(var i=0;i<links.length;i++){
-    		definitionID = links[i].id.slice(1);        													// Get definition id
-        thisDefinition = document.getElementById('d'+definitionID).innerHTML;	// Get current definition
-        abbr = document.createElement('abbr');  															// Create new tag
-        
-        links[i].setAttribute('href','#d' + definitionID.slice(1)); // Correct link title attribute
-        links[i].setAttribute('title',thisDefinition);     					// Correct link href attribute
-        abbr.setAttribute('title',thisDefinition);         					// Set the new tag's text to be the acronym definition
-        abbr.innerHTML = links[i].outerHTML;                    		// Insert the corrected link into the new ABBR tag
-        clickListener(abbr.firstChild);
-
-    // create sup element
-    sup = document.createElement('sup');
-    sup.setAttribute('class','printOnly');
-    // check for duplicates
-    var index = indexOf(definitionList, thisDefinition);
-    if(index == -1){
-    	// add list item
-    	var li = document.createElement('li');
-    	var li_txt = document.createTextNode(thisDefinition);
-    	li.appendChild(li_txt);
-    	ol.appendChild(li);
-    	definitionList.push(thisDefinition);
-      sup.innerHTML = num;
-      num++;
-    }else{
-    	sup.innerHTML = index + 1;
-    }
-    
-    // add sup element
-    abbr.appendChild(sup);
-    links[i].parentNode.replaceChild(abbr, links[i]);   // Swap out the old link for thew new ABBR/link element
-}
-
-footnote.innerHTML = '<h3>Footnotes</h3>';
-footnote.setAttribute('class','printOnly bodytext');
-footnote.appendChild(ol);
-document.getElementById('start-panel').appendChild(footnote);
-
-// Cross browser event listener function
-function clickListener(element) {
-    if (element.addEventListener) {
-        element.addEventListener('click', function(e) {
-            toggleInline(element);
-            e.preventDefault();
-        });
-    } else {
-        element.attachEvent('onclick', function(e) {
-            toggleInline(element);
-            e.preventDefault();
-        });
-    }
-}
-
-// Function to check if an item exists in an array
-function indexOf(array, item) {
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] === item)
-      return i;
-  }
-  return -1;
-}
-
-// Expand definition function
-function toggleInline(element){
-
-  var myDiv = document.getElementById('d' + element.id.slice(1));
-
-  if (myDiv){
-    if (myDiv.style.display == 'none') 
-      showInline('d' + element.id.slice(1));
-    else 
-      hideInline('d' + element.id.slice(1));
-  }
-}
-function showInline(element){
-
-  var myDiv = document.getElementById(element);
-  if (myDiv){
-    myDiv.style.display = 'inline';
-    myDiv.setAttribute('tabindex',-1);
-    myDiv.focus();
-  }
-}
-function hideInline(element){
-
-  var myDiv = document.getElementById(element);
-  if (myDiv) {
-    myDiv.removeAttribute('tabindex');
-    myDiv.style.display = 'none';
-  }
-}
+	var footnote = document.createElement('div'),			// Container to hold footnote section
+		ol = document.createElement('ol'),					// Ordered list for footnote references
+		definitionList = [],								// A list of all definitions
+		thisDefinition,										// the current definition in the loop
+		num = 1,											// the current reference number
+		definitionID,										// variable for definition IDs
+		abbr,												// variable for creating abbreviation elements
+		sup;												// variable for creating superscript elements
+	
+	
+	for(var i=0;i<links.length;i++){
+				definitionID = links[i].id.slice(1);        						// Get definition id
+			thisDefinition = document.getElementById('d'+definitionID).innerHTML;	// Get current definition
+			abbr = document.createElement('abbr');  								// Create new tag
+			
+			links[i].setAttribute('href','#d' + definitionID.slice(1)); 			// Correct link title attribute
+			links[i].setAttribute('title',thisDefinition);     						// Correct link href attribute
+			abbr.setAttribute('title',thisDefinition);         						// Set the new tag's text to be the acronym definition
+			abbr.innerHTML = links[i].outerHTML;                    				// Insert the corrected link into the new ABBR tag
+			clickListener(abbr.firstChild);
+	
+		// create sup element
+		sup = document.createElement('sup');
+		sup.setAttribute('class','printOnly');
+		// check for duplicates
+		var index = indexOf(definitionList, thisDefinition);
+		if(index == -1){
+			// add list item
+			var li = document.createElement('li');
+			var li_txt = document.createTextNode(thisDefinition);
+			li.appendChild(li_txt);
+			ol.appendChild(li);
+			definitionList.push(thisDefinition);
+		  sup.innerHTML = num;
+		  num++;
+		}else{
+			sup.innerHTML = index + 1;
+		}
+		
+		// add sup element
+		abbr.appendChild(sup);
+		links[i].parentNode.replaceChild(abbr, links[i]);   // Swap out the old link for thew new ABBR/link element
+	}
+	
+	footnote.innerHTML = '<h3>Footnotes</h3>';
+	footnote.setAttribute('class','printOnly bodytext');
+	footnote.appendChild(ol);
+	document.getElementById('start-panel').appendChild(footnote);
+	
+	// Cross browser event listener function
+	function clickListener(element) {
+		if (element.addEventListener) {
+			element.addEventListener('click', function(e) {
+				toggleInline(element);
+				e.preventDefault();
+			});
+		} else {
+			element.attachEvent('onclick', function(e) {
+				toggleInline(element);
+				e.preventDefault();
+			});
+		}
+	}
+	
+	// Function to check if an item exists in an array
+	function indexOf(array, item) {
+	  for (var i = 0; i < array.length; i++) {
+		if (array[i] === item)
+		  return i;
+	  }
+	  return -1;
+	}
+	
+	// Expand definition function
+	function toggleInline(element){
+	
+	  var myDiv = document.getElementById('d' + element.id.slice(1));
+	
+	  if (myDiv){
+		if (myDiv.style.display == 'none') 
+		  showInline('d' + element.id.slice(1));
+		else 
+		  hideInline('d' + element.id.slice(1));
+	  }
+	}
+	function showInline(element){
+	
+	  var myDiv = document.getElementById(element);
+	  if (myDiv){
+		myDiv.style.display = 'inline';
+		myDiv.setAttribute('tabindex',-1);
+		myDiv.focus();
+	  }
+	}
+	function hideInline(element){
+	
+	  var myDiv = document.getElementById(element);
+	  if (myDiv) {
+		myDiv.removeAttribute('tabindex');
+		myDiv.style.display = 'none';
+	  }
+	}
 }
