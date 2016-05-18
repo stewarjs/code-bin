@@ -1,0 +1,24 @@
+{
+	"apps": [
+		{
+            "url": "/cler/",
+            "title": "CLER",
+            "classes": "insurance,cler"
+		},
+        {
+            "url": "https://cpais.ocfo.usda.gov/prd_rp/index.html",
+            "title": "CPAIS",
+            "classes": "fms,cpais"
+		},
+        {
+            "url": "/downloadcenter/",
+            "title": "Download Center",
+            "classes": "hr,download"
+		},
+        {
+            "url": "/dprw/",
+            "title": "DPRW",
+            "classes": "insurance,dprw"
+		}
+    ]
+}
