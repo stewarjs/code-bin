@@ -1,0 +1,41 @@
+/*
+    .expandingblocktemplate {
+        color: #003DB2;
+        background: none;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+*/
+    var links = document.querySelectorAll('.expandingblocktemplate');
+    if(links) {
+        expandingblocksCompliant();
+    }
+    
+    function expandingblocksCompliant() {
+        var expandingblock,
+            button;
+        for(var i=0;i<links.length;i++) {
+            expandingblock = links[i].href.match(/'([^']+)'/)[1];
+
+            button = document.createElement('button');
+            button.setAttribute('aria-expanded','false');
+            button.setAttribute('class','expandingblocktemplate');
+            button.setAttribute('aria-controls','d' + expandingblock);
+            document.getElementById('d' + expandingblock).setAttribute('aria-hidden','true');
+            button.innerHTML = links[i].innerHTML;
+            $(button).on('click', function() {
+                if($(this).attr('aria-expanded') == 'false') {
+                    $(this).attr('aria-expanded','true');
+                    $(this).find('img').attr({'alt':'Hide','src':'arrowdown.gif'});
+                    $('#' + $(this).attr('aria-controls')).attr('aria-hidden','false').css('display','block');
+                }else{
+                    $(this).attr('aria-expanded','false');
+                    $(this).find('img').attr({'alt':'Show','src':'arrowright.gif'});
+                    $('#' + $(this).attr('aria-controls')).attr('aria-hidden','true').css('display','none');
+                }
+
+            });
+            links[i].parentNode.replaceChild(button, links[i]);
+        };
+    }
