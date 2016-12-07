@@ -2,13 +2,13 @@
 include($_SERVER['DOCUMENT_ROOT'].'\Includes\simple_html_dom.php');
 $categories = array('Adm_Billings', 'HR_Payroll_Processing', 'Manual_Pay', 'Pub_Notes', 'Reporting', 'Research_Inquiry', 'Retirement_Processing', 'TA_Processing', 'Taxes');
 $dir = $_SERVER['DOCUMENT_ROOT'].'\Publications\HR_Payroll\\';
-
+$newJson = array();
 foreach($categories as $catalog) {
     $files = null;
     // Get all files within the publications bucket
     foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir.$catalog.'\\')) as $filename) {
         $parts = pathinfo($filename);
-        if(is_file($filename) && strpos($parts['dirname'],'Bulletins') !== false && $parts['basename'] == 'index.php'){
+        if(is_file($filename) && strpos($parts['dirname'],'Procedures') != true && $parts['basename'] == 'index.php'){
             $filename = preg_replace("{/}", "\\", $filename);
             $files[] = $filename;
         }
@@ -16,7 +16,7 @@ foreach($categories as $catalog) {
     }
     
     arsort($files);
-    $newJson = array();
+    //var_dump($files);
 
     foreach($files as $file) {
         $html = file_get_html($file);
@@ -63,13 +63,11 @@ foreach($categories as $catalog) {
             }
         }
     }   
+
+   
     
-    print('<p>/*==============================================*/');
-    print('<p>/*====');
-    print($catalog);
-    print('<p>/*====');
-    print('<p>/*==============================================*/');
-    print('<pre>'.json_encode($newJson, JSON_PRETTY_PRINT).'</pre>');
 }
+krsort($newJson);
+print('<pre>'.json_encode($newJson, JSON_PRETTY_PRINT).'</pre>');
     
 ?>
